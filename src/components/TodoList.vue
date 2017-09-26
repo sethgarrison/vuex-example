@@ -17,7 +17,10 @@
   export default {
     computed: mapState({
       todos: 'todos'
-    })
+    }),
+    created () {
+      this.$store.dispatch('fetchTodos')
+    }
   }
 </script>
 
