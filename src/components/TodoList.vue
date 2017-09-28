@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>My Todo List</h1>
+    <span v-if="msg">{{msg}}</span>
     <ul>
       <li v-for="todo in todos">
         <input type="checkbox" :checked="todo.isComplete">
@@ -12,14 +13,18 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import {mapState, mapActions} from 'vuex'
 
   export default {
     computed: mapState({
-      todos: 'todos'
+      todos: state => state.todo.todos,
+      msg: state => state.message.msg
     }),
+    methods: mapActions([
+      'fetchTodos'
+    ]),
     created () {
-      this.$store.dispatch('fetchTodos')
+      this.fetchTodos()
     }
   }
 </script>
